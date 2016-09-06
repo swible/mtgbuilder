@@ -76,6 +76,9 @@ class mtgJson:
 	def getCardInfo(self, card_name):
 		return self.json_data.get(card_name)
 
+	def getCardList(self):
+		return list(self.json_data.keys())
+
 #filename = 'AllCards.json'
 #card_db = mtgJson(filename)
 #card_name = input('What card do you want to look for?')

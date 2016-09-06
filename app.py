@@ -19,6 +19,12 @@ def get_cardsearch(cardname):
 	search_result = card_db.searchCardName(cardname)
 	return jsonify(search_result)
 
+@app.route('/cardlist', methods=['GET'])
+def get_cardlist():
+	card_db = mtgJson('AllCards.json')
+	card_list = card_db.getCardList()
+	return jsonify(card_list)
+
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', debug=True)
 
