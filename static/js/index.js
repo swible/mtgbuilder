@@ -1,5 +1,13 @@
 $(function() {
 
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 var cardlist = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.whitespace,
   queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -10,18 +18,29 @@ var cardlist = new Bloodhound({
 
 // passing in `null` for the `options` arguments will result in the default
 // options being used
-$('#usr').typeahead(null, {
+$('#cardname').typeahead(null, {
   name: 'cardlist',
   source: cardlist
 });
 
 
 $("#add").click(function(){
-	//check if card exists
-	//if it does add to assoc array
-	//then add to list
-    $("#cardlist").append("Some appended text.");
+	var cardname = $('#cardname').val();
+	$.getJSON("/cardinfo/" + cardname, function(result){
+       		if (isEmpty(result)){
+			alert('Card does not exist');
+		}
+		else
+		{
+			var cardqty = $('#qty').val();
+			$("#cardlist").append(cardname + ' x' + cardqty + '<br />');
+		}
+		
+        });
+    
 });
+
+
 
 
 });

@@ -72,9 +72,17 @@ class mtgJson:
 		card_names = self.json_data.keys()
 		return [ name for name in card_names if name.casefold().startswith(card_name_search.casefold()) ]
 	
-	#returns a *dict* of card info identified by the card_name *str*
+	#returns a *dict* of card info identified by the card_name *str* case insensitive
 	def getCardInfo(self, card_name):
-		return self.json_data.get(card_name)
+		card_names = self.json_data.keys()
+		cardinfo = {}
+		for name in card_names:
+			if card_name.casefold() == name.casefold():
+				cardinfo = self.json_data[name]
+				break;
+		return cardinfo
+
+
 
 	def getCardList(self):
 		return list(self.json_data.keys())
@@ -82,9 +90,8 @@ class mtgJson:
 #filename = 'AllCards.json'
 #card_db = mtgJson(filename)
 #card_name = input('What card do you want to look for?')
-#print (card_name)
-#for card in card_db.searchCardName(card_name):
-#	print (card)
+#print (card_db.getCardInfo(card_name))
+
 
 #test = mtgJson()
 		
